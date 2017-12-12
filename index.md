@@ -1,8 +1,7 @@
-## Welcome to GitHub Pages
+## Welcome To My Website
 
-You can use the [editor on GitHub](https://github.com/Ricknoonan/ricknoonan.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+### This is where I will display all my cool graphs 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
 ### Markdown
 
