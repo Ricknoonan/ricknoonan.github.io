@@ -50,10 +50,6 @@ $(function(){
         // else we have a user and we display their info
         
         var fullname   = json.name;
-        var username   = json.login;
-        var aviurl     = json.avatar_url;
-        var profileurl = json.html_url;
-        var location   = json.location;
         var followersnum = json.followers;
         var followingnum = json.following;
         var reposnum     = json.public_repos;
@@ -122,7 +118,7 @@ $(function(){
         max = array[i];
     }
     var m = [80, 80, 80, 80]; // margins
-    var w = 1000 - m[1] - m[3]; // width
+    var w = 800 - m[1] - m[3]; // width
     var h = 400 - m[0] - m[2]; // height
    
     var x = d3.scale.linear().domain([0, arr.length]).range([0, w]);
@@ -165,6 +161,25 @@ $(function(){
         // Add the line by appending an svg:path element with the data line we created above
       // do this AFTER the axes above so that the line is above the tick-lines
         graph.append("svg:path").attr("d", line(arr));
+
+         // text label for the x axis
+
+  	  svg.append("text")             
+      		.attr("transform","translate(" + (width/2) + " ," + 
+                           (height + margin.bottom + 20) + ")")
+      		.style("text-anchor", "middle")
+      		.text("Date");
+
+      //text label for the y-axis
+      
+      svg.append("text")
+      		.attr("transform", "rotate(-90)")
+      		.attr("y", 0 - margin.left)
+      		.attr("x",0 - (height / 2))
+      		.attr("dy", "1em")
+      		.style("text-anchor", "middle")
+      		.text("Amount");  
+      		
       
 }
 
