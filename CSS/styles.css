@@ -75,6 +75,12 @@ a:hover {
   color: #6e91b9;
 }
 
+ul{
+  font-size: 1.4em;
+  line-height: 1.55em;
+  margin-bottom: 12px;
+}
+
 path {
         stroke: steelblue;
         stroke-width: 1;
