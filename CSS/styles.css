@@ -17,8 +17,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 html { overflow-y: scroll; }
 body {
-  background: #fafafa url('grey.png'); /* http://subtlepatterns.com/subtle-grey/ */
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #fafafa url('github.png'); 
+  font-family: 'Times New Roman', Helvetica, Georgia, Serif;
   font-size: 62.5%;
   line-height: 1;
   color: #616161;
@@ -48,7 +48,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 img { border: 0; max-width: 100%; }
 
 h1 { 
-  font-family: 'Oldenburg', Arial, sans-serif;
+  font-family: 'Times New Roman', Helvetica, Georgia, Serif;
   color: #646464;
   font-size: 4.0em;
   line-height: 1.6em;
@@ -104,11 +104,34 @@ path {
 
 
 /* page structure */
-#w {
+
+
+#order{
+  display: table;
+}
+#graph{
   display: block;
   width: 800px;
+  height: 0px
+  margin: 0px auto;
+  float:middle;
+  background: #fff;
+  padding: 15px 25px;
+  margin-bottom: :0px;
+  -webkit-box-shadow: 1px 2px 3px -1px rgba(0,0,0,0.4);
+  -moz-box-shadow: 1px 2px 3px -1px rgba(0,0,0,0.4);
+  box-shadow: 1px 2px 3px -1px rgba(0,0,0,0.4);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+#input {
+  display: block;
+  width: 800px;
+  height: 300px;
   margin: 0 auto;
   background: #fff;
+  float:middle;
   padding: 15px 25px;
   -webkit-box-shadow: 1px 2px 3px -1px rgba(0,0,0,0.4);
   -moz-box-shadow: 1px 2px 3px -1px rgba(0,0,0,0.4);

@@ -15,25 +15,34 @@
 </head>
 
 <body>
-  <div id="w">
-    <h1>Simple Github API Webapp</h1>
-    <p>Enter a single Github username below and click the button to display profile info via JSON.</p>
+
+  <div id= "order">
+  <div id="input">
+    <h1>Github API Access Application</h1>
+    <p>Enter your username below and get a line graph consisting of who you're following, the number of public repos, whos following you and you gists.</p>
     
     <input type="text" name="ghusername" id="ghusername" placeholder="Github username...">
     
-    <a href="#" id="ghsubmitbtn">Pull User Data</a>
+    <a href="#" id="ghsubmitbtn">Get Line Graph</a>
     
     <div id="ghapidata" class="clearfix"></div>
-    <div id="graph" class="aGraph" style="position:absolute;margin-bottom: :0px;left:0; float:left;"></div>
+    
   </div>
+
+  <div id = "graph" >
+  		<graph height= "300"></graph>
+  </div>
+
+  </div>
+  
+  
 
 
 <script type="text/javascript">
-
 $(function(){
   $('#ghsubmitbtn').on('click', function(e){
     e.preventDefault();
-    $('#ghapidata').html('<div id="loader"><img src="css/loader.gif" alt="loading..."></div>');
+   // $('#ghapidata').html('<div id="loader"><img src="css/loader.gif" alt="loading..."></div>');
     
     var username = $('#ghusername').val();
     
@@ -63,22 +72,22 @@ $(function(){
         var array = [additions,deletions,commits]
         lineGraph(array);
 */
+/*
         if(fullname == undefined) { fullname = username; }
         
         var outhtml = '<h2>'+fullname+' <span class="smallname">(@<a href="'+profileurl+'" target="_blank">'+username+'</a>)</span></h2>';
         outhtml = outhtml + '<div class="ghcontent"><div class="avi"><a href="'+profileurl+'" target="_blank"><img src="'+aviurl+'" width="80" height="80" alt="'+username+'"></a></div>';
         outhtml = outhtml + '<p>Followers: '+followersnum+' - Following: '+followingnum+'<br>Repos: '+reposnum+'</p></div>';
         outhtml = outhtml + '<div class="repolist clearfix">';
-        
+*/
+/*
         var repositories;
         $.getJSON(repouri, function(json){
           repositories = json;   
           outputPageContent();                
         });          
-        
-
-
-
+  */   
+/*
         function outputPageContent() {
           if(repositories.length == 0) { outhtml = outhtml + '<p>No repos!</p></div>'; }
           else {
@@ -89,13 +98,15 @@ $(function(){
             outhtml = outhtml + '</ul></div>'; 
           }
           $('#ghapidata').html(outhtml);
-        } // end outputPageContent()
-      } // end else statement
+        }
+        */ // end outputPageContent()
+      } 
+      // end else statement
     }); // end requestJSON Ajax call
   }); // end click event handler
+
+
   
-
-
   function requestJSON(url, callback) {
     $.ajax({
       url: url,
@@ -106,11 +117,8 @@ $(function(){
   }
 });
   
-
-
     function lineGraph(array)   {
     // define dimensions of graph
-
     var arr = array; 
     var max = 0;
     for (var i = 0; i <array.length; i++) {
@@ -120,10 +128,23 @@ $(function(){
     var m = [80, 80, 80, 80]; // margins
     var w = 800 - m[1] - m[3]; // width
     var h = 400 - m[0] - m[2]; // height
+
+    // Add an SVG element with the desired dimensions and margin.
+    var graph = d3.select("#graph").append("svg:svg")
+            .attr("width", w + m[1] + m[3])
+            .attr("height", h + m[0] + m[2])
+          .append("svg:g")
+            .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
    
+
     var x = d3.scale.linear().domain([0, arr.length]).range([0, w]);
     var y = d3.scale.linear().domain([0, max]).range([h, 0]);
+    //var x = d3.scaleBand().rangeRound([0,400]).paddingInner(0.1),
+    //d3.svg.axis().tickValues(*array*)
       
+   //omain(["f", "g", "d", "l"]);
+
+
     var line = d3.svg.line()
       .x(function(d,i) { 
         console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
@@ -134,24 +155,19 @@ $(function(){
         return y(d); 
       })
 
-      // Add an SVG element with the desired dimensions and margin.
-      var graph = d3.select("#graph").append("svg:svg")
-            .attr("width", w + m[1] + m[3])
-            .attr("height", h + m[0] + m[2])
-          .append("svg:g")
-            .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
       // create yAxis
       var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
+
       // Add the x-axis.
       graph.append("svg:g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + h + ")")
             .call(xAxis);
 
-
       // create left yAxis
       var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left");
+
       // Add the y-axis to the left
       graph.append("svg:g")
             .attr("class", "y axis")
@@ -160,30 +176,28 @@ $(function(){
       
         // Add the line by appending an svg:path element with the data line we created above
       // do this AFTER the axes above so that the line is above the tick-lines
-        graph.append("svg:path").attr("d", line(arr));
+       graph.append("svg:path").attr("d", line(arr));
+
 
          // text label for the x axis
-
-  	  svg.append("text")             
-      		.attr("transform","translate(" + (width/2) + " ," + 
-                           (height + margin.bottom + 20) + ")")
+         /*
+  	  graph.append("svg:g")             
+      		.attr("transform","translate(" + (w/2) + " ," + 
+                           (h + 20) + ")")
       		.style("text-anchor", "middle")
       		.text("Date");
-
       //text label for the y-axis
       
-      svg.append("text")
+      graph.append("svg:g")
       		.attr("transform", "rotate(-90)")
-      		.attr("y", 0 - margin.left)
-      		.attr("x",0 - (height / 2))
+      		.attr("y", 10 )
+      		.attr("x",10 - (h/ 2))
       		.attr("dy", "1em")
       		.style("text-anchor", "middle")
       		.text("Amount");  
       		
-      
+      */
 }
-
-
 </script>
 </body>
 </html>
